@@ -23,7 +23,7 @@ services:
     plan: free
     region: singapore
     buildCommand: npm ci && npm run build
-    publishPath: dist
+    staticPublishPath: dist
     routes:
       - type: rewrite
         source: /*
