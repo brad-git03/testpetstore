@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         String localhost3000 = "http://localhost:3000";
 
         registry.addMapping("/api/**")
-                .allowedOriginPatterns("https://*.onrender.com", localhost5173, localhost3000)
+                .allowedOriginPatterns("*", "https://*.onrender.com", localhost5173, localhost3000)
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization")
