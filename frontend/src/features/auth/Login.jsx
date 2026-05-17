@@ -28,9 +28,26 @@ export default function Login() {
     }
   }
 
+  const loginAsAdmin = async () => {
+    setLoading(true)
+    try {
+      const response = await api.post('/auth/login', { email: 'admin@petstore.com', password: 'admin' })
+      localStorage.setItem('access_token', response.data.accessToken)
+      localStorage.setItem('user_email', response.data.email)
+      localStorage.setItem('user_name', response.data.fullName || response.data.email)
+      localStorage.setItem('user_role', response.data.role)
+      showToast('Welcome back, Admin!', 'success')
+      navigate('/admin')
+    } catch (error) {
+      showToast('Admin login failed. Make sure admin@petstore.com exists.', 'error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="rounded-[2rem] bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 p-8 text-white shadow-2xl">
+      <div className="rounded-[2rem] bg-gradient-to-br from-teal-400 via-teal-500 to-cyan-500 p-8 text-white shadow-2xl">
         <div className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">Welcome back</div>
         <h1 className="mt-3 text-4xl font-black">Sign in to continue shopping</h1>
         <p className="mt-4 max-w-md text-white/80">Pick up where you left off, keep your wishlist handy, and finish checkout faster.</p>
@@ -44,9 +61,12 @@ export default function Login() {
           <Button type="submit" variant="contained" fullWidth disabled={loading} sx={{ borderRadius: 999, py: 1.4, textTransform: 'none', boxShadow: 'none' }}>
             {loading ? 'Signing in...' : 'Sign in'}
           </Button>
+          <Button type="button" variant="outlined" color="secondary" fullWidth disabled={loading} onClick={loginAsAdmin} sx={{ borderRadius: 999, py: 1.4, textTransform: 'none' }}>
+            or Login as Admin ( For Test )
+          </Button>
         </form>
         <div className="mt-5 text-sm text-slate-500">
-          New here? <Link to="/register" className="font-semibold text-amber-600">Create an account</Link>
+          New here? <Link to="/register" className="font-semibold text-teal-600">Create an account</Link>
         </div>
       </Paper>
     </div>

@@ -41,12 +41,12 @@ export default function Register() {
           </Button>
         </form>
         <div className="mt-5 text-sm text-slate-500">
-          Already have an account? <Link to="/login" className="font-semibold text-amber-600">Sign in</Link>
+          Already have an account? <Link to="/login" className="font-semibold text-teal-600">Sign in</Link>
         </div>
       </Paper>
 
-      <div className="rounded-[2rem] bg-slate-950 p-8 text-white shadow-2xl">
-        <div className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">Join the pack</div>
+      <div className="rounded-[2rem] bg-[#0f766e] p-8 text-white shadow-2xl">
+        <div className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-100">Join the pack</div>
         <h1 className="mt-3 text-4xl font-black">A smoother way to shop for pets.</h1>
         <p className="mt-4 max-w-md text-white/80">Save favorites, manage orders, and keep everything in one place.</p>
       </div>

@@ -45,7 +45,9 @@ public class DataSourceConfig {
                 cfg.setPassword(connectionDetails.password());
             }
 
-            cfg.addDataSourceProperty("sslmode", "require");
+            if (connectionDetails.jdbcUrl() != null && !connectionDetails.jdbcUrl().contains("localhost")) {
+                cfg.addDataSourceProperty("sslmode", "require");
+            }
             return new HikariDataSource(cfg);
         } catch (Exception ex) {
             throw new IllegalStateException("Failed to configure DataSource from environment", ex);

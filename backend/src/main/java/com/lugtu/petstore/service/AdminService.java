@@ -102,6 +102,7 @@ public class AdminService {
         pet.setAge(request.age());
         pet.setGender(request.gender());
         pet.setPrice(request.price());
+        pet.setStockQuantity(request.stockQuantity() == null ? 0 : request.stockQuantity());
         pet.setPromoPrice(request.promoPrice());
         pet.setDescription(request.description());
         pet.setImageUrl(request.imageUrl());
@@ -126,7 +127,7 @@ public class AdminService {
     }
 
     private AdminPetResponse mapPet(Pet pet) {
-        return new AdminPetResponse(pet.getId(), pet.getName(), pet.getCategory(), pet.getBreed(), pet.getAge(), pet.getGender(), pet.getPrice(), pet.getPromoPrice(), pet.getDescription(), pet.getImageUrl(), pet.getVaccinationStatus(), pet.getIsActive(), pet.getFeatured(), pet.getTrending());
+        return new AdminPetResponse(pet.getId(), pet.getName(), pet.getCategory(), pet.getBreed(), pet.getAge(), pet.getGender(), pet.getPrice(), pet.getStockQuantity(), pet.getPromoPrice(), pet.getDescription(), pet.getImageUrl(), pet.getVaccinationStatus(), pet.getIsActive(), pet.getFeatured(), pet.getTrending());
     }
 
     private AdminVariantResponse mapVariant(PetVariant variant) {

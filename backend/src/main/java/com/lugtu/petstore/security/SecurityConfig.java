@@ -24,15 +24,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/api/**", "/actuator/**")
-            .csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeHttpRequests()
-            .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**"), new AntPathRequestMatcher("/actuator/**")).permitAll()
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**"), new AntPathRequestMatcher("/actuator/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/v1/pets/**", HttpMethod.GET.name())).permitAll()
-            .requestMatchers(new AntPathRequestMatcher("/api/v1/cart/**"), new AntPathRequestMatcher("/api/v1/orders/**"), new AntPathRequestMatcher("/api/v1/wishlist/**"), new AntPathRequestMatcher("/api/v1/users/**")).authenticated()
-            .requestMatchers(new AntPathRequestMatcher("/api/v1/admin/**")).hasRole("ADMIN")
-            .anyRequest().authenticated();
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/cart/**"), new AntPathRequestMatcher("/api/v1/orders/**"), new AntPathRequestMatcher("/api/v1/wishlist/**"), new AntPathRequestMatcher("/api/v1/users/**")).authenticated()
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/admin/**")).hasRole("ADMIN")
+                .anyRequest().authenticated()
+            );
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

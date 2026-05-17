@@ -83,10 +83,10 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <section className="overflow-hidden rounded-[2rem] border border-white/70 bg-gradient-to-br from-amber-50 via-white to-sky-50 shadow-[0_25px_60px_-24px_rgba(15,23,42,0.22)]">
+      <section className="overflow-hidden rounded-[2rem] border border-white/70 bg-gradient-to-br from-teal-50 via-white to-orange-50 shadow-[0_25px_60px_-24px_rgba(20,184,166,0.15)]">
         <div className="grid gap-8 px-6 py-8 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:py-12">
           <div className="space-y-6">
-            <Chip icon={<PetsRounded />} label="Modern pet shopping" sx={{ bgcolor: 'rgba(251,146,60,0.14)', color: '#9a3412', fontWeight: 700 }} />
+            <Chip icon={<PetsRounded />} label="Modern pet shopping" sx={{ bgcolor: 'rgba(20,184,166,0.12)', color: '#0f766e', fontWeight: 700 }} />
             <div className="space-y-4">
               <h1 className="max-w-xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
                 Find the perfect companion with a brighter, friendlier pet shop.
@@ -111,8 +111,8 @@ export default function Home() {
             </div>
           </div>
 
-          <Paper className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-2xl">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(251,191,36,0.2),_transparent_28%),radial-gradient(circle_at_bottom_left,_rgba(56,189,248,0.18),_transparent_30%)]" />
+          <Paper className="relative overflow-hidden rounded-[1.75rem] border border-teal-100 bg-[#0f766e] p-6 text-white shadow-2xl">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(251,146,60,0.2),_transparent_28%),radial-gradient(circle_at_bottom_left,_rgba(204,251,241,0.15),_transparent_30%)]" />
             <div className="relative space-y-5">
               <div className="flex items-center justify-between">
                 <div>
@@ -146,8 +146,8 @@ export default function Home() {
       <section className="space-y-4 rounded-[1.75rem] border border-slate-200 bg-white/90 p-6 shadow-sm">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-600">Browse categories</div>
-            <h2 className="text-2xl font-bold text-slate-950">Dogs, cats, birds, and fishes</h2>
+            <div className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600">Browse categories</div>
+            <h2 className="text-2xl font-bold text-slate-800">Dogs, cats, birds, and fishes</h2>
           </div>
           <Button onClick={() => setSearchParams({})} sx={{ textTransform: 'none' }}>
             Clear filters
@@ -179,8 +179,8 @@ export default function Home() {
       <section id="featured-pets" className="space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <div className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-600">Featured pets</div>
-            <h2 className="text-2xl font-bold text-slate-950">Popular picks customers love</h2>
+            <div className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600">Featured pets</div>
+            <h2 className="text-2xl font-bold text-slate-800">Popular picks customers love</h2>
           </div>
           <div className="text-sm text-slate-500">
             {category ? `Filtered by ${category}` : debouncedQuery ? `Showing results for “${debouncedQuery}”` : 'Showing all pets'}
@@ -218,8 +218,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="overflow-hidden rounded-[1.75rem] bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 p-[1px] shadow-lg">
-        <div className="rounded-[1.7rem] bg-slate-950 px-6 py-8 text-white sm:px-8">
+      <section className="overflow-hidden rounded-[1.75rem] bg-gradient-to-r from-teal-400 via-teal-500 to-cyan-500 p-[1px] shadow-lg">
+        <div className="rounded-[1.7rem] bg-[#0f766e] px-6 py-8 text-white sm:px-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <div className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">Seasonal promo</div>
@@ -247,10 +247,10 @@ function InfoPill({ icon, label, value }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-amber-100 p-2 text-amber-700">{icon}</div>
+        <div className="rounded-2xl bg-teal-50 p-2 text-teal-600">{icon}</div>
         <div>
           <div className="text-sm text-slate-500">{label}</div>
-          <div className="font-semibold text-slate-950">{value}</div>
+          <div className="font-semibold text-slate-800">{value}</div>
         </div>
       </div>
     </div>

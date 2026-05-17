@@ -82,7 +82,7 @@ export default function PetCard({ pet }) {
             {stockQuantity > 0 ? `${stockQuantity} in stock` : 'Sold out'}
           </div>
           <div className="absolute inset-x-0 bottom-0 flex translate-y-4 gap-2 px-4 pb-4 opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
-            <Button component={Link} to={`/pets/${pet.id}`} fullWidth variant="contained" startIcon={<VisibilityRounded />} sx={{ borderRadius: 999, textTransform: 'none', boxShadow: 'none' }}>
+            <Button component="span" fullWidth variant="contained" startIcon={<VisibilityRounded />} sx={{ borderRadius: 999, textTransform: 'none', boxShadow: 'none' }}>
               View
             </Button>
             <Tooltip title="Add to wishlist">

@@ -10,6 +10,7 @@ public record AdminPetResponse(
         String age,
         String gender,
         BigDecimal price,
+        Integer stockQuantity,
         BigDecimal promoPrice,
         String description,
         String imageUrl,

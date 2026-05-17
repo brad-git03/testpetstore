@@ -126,14 +126,14 @@ export default function SiteLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(255,247,237,0.9),_rgba(248,250,252,1)_45%)]">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(204,251,241,0.6),_rgba(250,250,249,1)_45%)]">
       <AppBar position="sticky" elevation={0} color="transparent" sx={{ backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(148,163,184,0.18)' }}>
         <Toolbar className="mx-auto w-full max-w-7xl gap-3 px-4 py-3 sm:px-6 lg:px-8">
           <Box className="flex items-center gap-2">
             <IconButton className="lg:hidden" onClick={event => setMobileAnchor(event.currentTarget)}>
               <MenuOutlined />
             </IconButton>
-            <Button component={Link} to="/" startIcon={<PetsRounded />} sx={{ color: 'inherit', textTransform: 'none', fontWeight: 800, letterSpacing: 0.2 }}>
+            <Button component={Link} to="/" startIcon={<PetsRounded />} sx={{ color: '#0f766e', textTransform: 'none', fontWeight: 800, letterSpacing: 0.2 }}>
               PetStore
             </Button>
           </Box>
@@ -166,8 +166,8 @@ export default function SiteLayout({ children }) {
                   to={item.to}
                   startIcon={item.icon}
                   sx={{
-                    color: location.pathname === item.to ? '#0f172a' : '#475569',
-                    bgcolor: location.pathname === item.to ? 'rgba(251,146,60,0.14)' : 'transparent',
+                    color: location.pathname === item.to ? '#0f766e' : '#475569',
+                    bgcolor: location.pathname === item.to ? 'rgba(20,184,166,0.12)' : 'transparent',
                     borderRadius: 999,
                     textTransform: 'none',
                     px: 1.5
@@ -197,7 +197,7 @@ export default function SiteLayout({ children }) {
 
             {user ? (
               <>
-                <Button onClick={event => setMenuAnchor(event.currentTarget)} startIcon={<Avatar sx={{ width: 30, height: 30, bgcolor: 'warning.main' }}>{initials(user.fullName || user.email)}</Avatar>} sx={{ color: 'inherit', textTransform: 'none', borderRadius: 999 }}>
+                <Button onClick={event => setMenuAnchor(event.currentTarget)} startIcon={<Avatar sx={{ width: 30, height: 30, bgcolor: 'secondary.main' }}>{initials(user.fullName || user.email)}</Avatar>} sx={{ color: '#0f766e', textTransform: 'none', borderRadius: 999 }}>
                   <span className="hidden sm:inline">{user.fullName || user.email}</span>
                 </Button>
                 <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => setMenuAnchor(null)}>
@@ -220,10 +220,10 @@ export default function SiteLayout({ children }) {
               </>
             ) : (
               <>
-                <Button component={Link} to="/login" startIcon={<LoginOutlined />} sx={{ color: '#0f172a', bgcolor: 'white', borderRadius: 999, textTransform: 'none', px: 2 }}>
+                <Button component={Link} to="/login" startIcon={<LoginOutlined />} sx={{ color: '#0f766e', bgcolor: 'white', borderRadius: 999, textTransform: 'none', px: 2 }}>
                   Sign in
                 </Button>
-                <Button component={Link} to="/register" variant="contained" sx={{ borderRadius: 999, textTransform: 'none', px: 2.2, boxShadow: 'none' }}>
+                <Button component={Link} to="/register" variant="contained" color="primary" sx={{ borderRadius: 999, textTransform: 'none', px: 2.2, boxShadow: 'none' }}>
                   Join
                 </Button>
               </>
