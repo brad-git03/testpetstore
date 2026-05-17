@@ -187,7 +187,7 @@ export default function SiteLayout({ children }) {
                 </Badge>
               </IconButton>
             </Tooltip>
-            <Tooltip title="Cart">
+            <Tooltip title="Adoption List">
               <IconButton component={Link} to="/cart" color="inherit">
                 <Badge badgeContent={cartCount} color="secondary">
                   <ShoppingCartOutlined />

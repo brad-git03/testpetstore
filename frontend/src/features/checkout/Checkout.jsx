@@ -15,7 +15,7 @@ export default function Checkout() {
   React.useEffect(() => {
     api.get('/cart')
       .then(res => setCart(res.data))
-      .catch(() => setError('Unable to load cart'))
+      .catch(() => setError('Unable to load adoption list'))
       .finally(() => setLoading(false))
   }, [])
 

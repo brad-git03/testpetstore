@@ -18,7 +18,7 @@ export default function Cart() {
       .then(res => setCart(res.data))
       .catch(() => {
         setCart(null)
-        setError('Unable to load cart')
+        setError('Unable to load adoption list')
       })
       .finally(() => setLoading(false))
   }, [])
@@ -30,8 +30,8 @@ export default function Cart() {
   const updateQuantity = (itemId, quantity) => {
     api.put(`/cart/items/${itemId}`, { quantity })
       .then(res => setCart(res.data))
-      .then(() => showToast('Cart updated', 'success'))
-      .catch(() => setError('Unable to update cart'))
+      .then(() => showToast('Adoption list updated', 'success'))
+      .catch(() => setError('Unable to update adoption list'))
   }
 
   const removeItem = itemId => {
@@ -61,7 +61,7 @@ export default function Cart() {
     <div className="space-y-6">
       <div>
         <div className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-600">Shopping bag</div>
-        <h1 className="text-3xl font-black text-slate-950">Your cart</h1>
+        <h1 className="text-3xl font-black text-slate-950">Your adoption list</h1>
       </div>
 
       {error ? <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">{error}</div> : null}
@@ -69,7 +69,7 @@ export default function Cart() {
       {!cart || cart.items.length === 0 ? (
         <div className="rounded-[1.75rem] border border-dashed border-slate-300 bg-white p-10 text-center shadow-sm">
           <ShoppingBagOutlined className="text-5xl text-slate-300" />
-          <div className="mt-4 text-2xl font-bold text-slate-950">Your cart is empty</div>
+          <div className="mt-4 text-2xl font-bold text-slate-950">Your adoption list is empty</div>
           <p className="mt-2 text-slate-500">Start adding pets you love and come back to complete checkout.</p>
           <Button component={Link} to="/" variant="contained" sx={{ mt: 3, borderRadius: 999, textTransform: 'none', boxShadow: 'none' }}>
             Browse pets

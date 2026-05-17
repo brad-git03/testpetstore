@@ -230,7 +230,7 @@ export default function Home() {
             </div>
             <div className="flex gap-3">
               <Button component={Link} to="/cart" variant="contained" sx={{ borderRadius: 999, bgcolor: 'white', color: '#0f172a', textTransform: 'none', boxShadow: 'none', '&:hover': { bgcolor: '#f8fafc' } }}>
-                View cart
+                View adoption list
               </Button>
               <Button component={Link} to="/orders" variant="outlined" sx={{ borderRadius: 999, color: 'white', borderColor: 'rgba(255,255,255,0.35)', textTransform: 'none' }}>
                 Track orders

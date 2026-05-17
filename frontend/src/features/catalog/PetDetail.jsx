@@ -64,13 +64,13 @@ export default function PetDetail() {
 
   const addToCart = () => {
     if (!selectedVariant) {
-      showToast('Choose a variant before adding to cart', 'warning')
+      showToast('Choose a variant before adding to your adoption list', 'warning')
       return
     }
 
     api.post('/cart/items', { petVariantId: selectedVariant.id, quantity: 1 })
-      .then(() => showToast(`${pet.name} added to cart`, 'success'))
-      .catch(() => showToast('Unable to add to cart', 'error'))
+      .then(() => showToast(`Added ${pet.name} to adoption list`, 'success'))
+      .catch(() => showToast('Unable to add to adoption list', 'error'))
   }
 
   const saveToWishlist = () => {
@@ -216,7 +216,7 @@ export default function PetDetail() {
               fullWidth
               sx={{ borderRadius: 999, py: 1.5, textTransform: 'none', boxShadow: 'none' }}
             >
-              Add to cart
+              Adopt {pet.name}
             </Button>
             <Button onClick={saveToWishlist} variant="outlined" startIcon={<FavoriteBorderRounded />} fullWidth sx={{ borderRadius: 999, py: 1.5, textTransform: 'none' }}>
               Save to wishlist

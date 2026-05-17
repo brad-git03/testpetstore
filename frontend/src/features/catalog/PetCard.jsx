@@ -40,9 +40,9 @@ export default function PetCard({ pet }) {
       }
 
       await api.post('/cart/items', { petVariantId: selectedVariant.id, quantity: 1 })
-      showToast(`${pet.name} added to cart`, 'success')
+      showToast(`Added ${pet.name} to adoption list`, 'success')
     } catch (error) {
-      showToast('Unable to add item to cart', 'error')
+      showToast('Unable to add to adoption list', 'error')
     } finally {
       setBusyAction('')
     }
@@ -123,7 +123,7 @@ export default function PetCard({ pet }) {
             fullWidth
             sx={{ borderRadius: 999, textTransform: 'none', boxShadow: 'none' }}
           >
-            {busyAction === 'cart' ? 'Adding...' : 'Add to cart'}
+            {busyAction === 'cart' ? 'Processing...' : 'Adopt'}
           </Button>
           <Button onClick={addToWishlist} disabled={busyAction === 'wishlist'} variant="outlined" sx={{ borderRadius: 999, minWidth: 52, bgcolor: '#fff' }}>
             <FavoriteBorderRounded fontSize="small" />
