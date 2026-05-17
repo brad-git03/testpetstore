@@ -16,7 +16,7 @@ services:
           name: petstore-db
           property: connectionString
 
-  - type: static
+  - type: web
     name: petstore-frontend
     runtime: static
     rootDir: frontend
