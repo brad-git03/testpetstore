@@ -1,37 +1,38 @@
-# Render Blueprint for Pet Store (Singapore, free tier)
-# Deploys: Postgres (free), Backend (web service), Frontend (static site)
-
 services:
-  - type: postgres
-    name: petstore-db
-    plan: free
-    region: singapore
-
-  - type: web_service
+  - type: web
     name: petstore-backend
-    env: java
+    runtime: docker
+    rootDir: backend
     plan: free
     region: singapore
-    branch: main
-    buildCommand: mvn -B -DskipTests package
-    startCommand: java -jar target/*-backend-*.jar
+    healthCheckPath: /actuator/health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: PORT
-        value: "$PORT"
+        value: render
       - key: JWT_SECRET
-        generate: true
+        generateValue: true
       - key: DATABASE_URL
-        fromDatabase: petstore-db
+        fromDatabase:
+          name: petstore-db
+          property: connectionString
 
-  - type: static_site
+  - type: static
     name: petstore-frontend
+    runtime: static
+    rootDir: frontend
     plan: free
     region: singapore
-    branch: main
     buildCommand: npm ci && npm run build
     publishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        value: "https://petstore-backend.onrender.com"
+        value: https://petstore-backend.onrender.com
+
+databases:
+  - name: petstore-db
+    plan: free
+    region: singapore

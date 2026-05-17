@@ -31,41 +31,67 @@ public class DataSourceConfig {
     @ConditionalOnMissingBean(DataSource.class)
     public DataSource dataSource() {
         try {
-            if (springDatasourceUrl != null && !springDatasourceUrl.isEmpty()) {
-                HikariConfig cfg = new HikariConfig();
-                cfg.setJdbcUrl(springDatasourceUrl);
-                if (springDatasourceUsername != null && !springDatasourceUsername.isEmpty()) cfg.setUsername(springDatasourceUsername);
-                if (springDatasourcePassword != null && !springDatasourcePassword.isEmpty()) cfg.setPassword(springDatasourcePassword);
-                return new HikariDataSource(cfg);
-            }
-
-            if (databaseUrl == null || databaseUrl.isEmpty()) {
+            HikariConfig cfg = new HikariConfig();
+            ConnectionDetails connectionDetails = resolveConnection(firstNonBlank(springDatasourceUrl, databaseUrl));
+            if (connectionDetails == null) {
                 return new HikariDataSource();
             }
 
-            // Parse DATABASE_URL like: postgres://user:pass@host:port/db
-            URI uri = new URI(databaseUrl);
-            String userInfo = uri.getUserInfo();
-            String username = null;
-            String password = null;
-            if (userInfo != null) {
-                String[] parts = userInfo.split(":" , 2);
-                username = parts[0];
-                if (parts.length > 1) password = parts[1];
+            cfg.setJdbcUrl(connectionDetails.jdbcUrl());
+            if (connectionDetails.username() != null) {
+                cfg.setUsername(connectionDetails.username());
             }
-            String host = uri.getHost();
-            int port = uri.getPort();
-            String path = uri.getPath();
-            String jdbcUrl = String.format("jdbc:postgresql://%s:%d%s", host, port, path);
+            if (connectionDetails.password() != null) {
+                cfg.setPassword(connectionDetails.password());
+            }
 
-            HikariConfig cfg = new HikariConfig();
-            cfg.setJdbcUrl(jdbcUrl);
-            if (username != null) cfg.setUsername(username);
-            if (password != null) cfg.setPassword(password);
             cfg.addDataSourceProperty("sslmode", "require");
             return new HikariDataSource(cfg);
         } catch (Exception ex) {
             throw new IllegalStateException("Failed to configure DataSource from environment", ex);
         }
     }
+
+    private ConnectionDetails resolveConnection(String rawUrl) throws Exception {
+        if (rawUrl == null || rawUrl.isBlank()) {
+            return null;
+        }
+        if (rawUrl.startsWith("jdbc:")) {
+            return new ConnectionDetails(rawUrl,
+                    nonBlank(springDatasourceUsername),
+                    nonBlank(springDatasourcePassword));
+        }
+
+        URI uri = new URI(rawUrl);
+        String host = uri.getHost();
+        int port = uri.getPort() > 0 ? uri.getPort() : 5432;
+        String path = uri.getPath() != null ? uri.getPath() : "";
+        String userInfo = uri.getUserInfo();
+        String username = null;
+        String password = null;
+        if (userInfo != null && !userInfo.isBlank()) {
+            String[] parts = userInfo.split(":", 2);
+            username = parts[0];
+            if (parts.length > 1) {
+                password = parts[1];
+            }
+        }
+        return new ConnectionDetails(String.format("jdbc:postgresql://%s:%d%s", host, port, path), username, password);
+    }
+
+    private String firstNonBlank(String first, String second) {
+        if (first != null && !first.isBlank()) {
+            return first;
+        }
+        if (second != null && !second.isBlank()) {
+            return second;
+        }
+        return null;
+    }
+
+    private String nonBlank(String value) {
+        return value != null && !value.isBlank() ? value : null;
+    }
+
+    private record ConnectionDetails(String jdbcUrl, String username, String password) {}
 }
