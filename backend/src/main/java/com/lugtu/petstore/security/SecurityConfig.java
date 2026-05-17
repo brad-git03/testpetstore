@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -22,15 +23,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/actuator/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/pets/**").permitAll()
-                .requestMatchers("/api/v1/cart/**", "/api/v1/orders/**", "/api/v1/wishlist/**", "/api/v1/users/**").authenticated()
-                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated();
+        http.securityMatcher("/api/**", "/actuator/**")
+            .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeHttpRequests()
+            .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**"), new AntPathRequestMatcher("/actuator/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/v1/pets/**", HttpMethod.GET.name())).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/api/v1/cart/**"), new AntPathRequestMatcher("/api/v1/orders/**"), new AntPathRequestMatcher("/api/v1/wishlist/**"), new AntPathRequestMatcher("/api/v1/users/**")).authenticated()
+            .requestMatchers(new AntPathRequestMatcher("/api/v1/admin/**")).hasRole("ADMIN")
+            .anyRequest().authenticated();
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
